@@ -5,7 +5,6 @@ interface CircleButtonProps {
     onPress: () => void;
 } 
 
-
 export default function CircleButton({ onPress }: CircleButtonProps) {
   return (
     <View style={styles.circleButtonContainer}>
