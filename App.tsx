@@ -9,6 +9,7 @@ const PlaceholderImage = require("./assets/images/background-image.png");
 
 export default function App() {
   const [imageURI, setImageURI] = useState<string | undefined>(undefined);
+  const [showAppOtions, setShowAppOptions] = useState<boolean>(false);
 
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -24,22 +25,33 @@ export default function App() {
 
     if (result.assets && result.assets.length > 0) {
       setImageURI(result.assets[0].uri);
+      setShowAppOptions(true);
     }
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.image}>
-        <ImageViewer placeholderImageSource={PlaceholderImage} imageURI={imageURI} />
-      </View>
-      <View style={styles.imageContainer}>
-        <Button
-          theme="primary"
-          label="Choose a photo"
-          onPress={pickImageAsync}
+        <ImageViewer
+          placeholderImageSource={PlaceholderImage}
+          imageURI={imageURI}
         />
-        <Button label="Use this photo" />
       </View>
+      {showAppOtions ? (
+        <View />
+      ) : (
+        <View style={styles.imageContainer}>
+          <Button
+            theme="primary"
+            label="Choose a photo"
+            onPress={pickImageAsync}
+          />
+          <Button
+            label="Use this photo"
+            onPress={() => setShowAppOptions(true)}
+          />
+        </View>
+      )}
       <StatusBar style="auto" />
     </View>
   );
