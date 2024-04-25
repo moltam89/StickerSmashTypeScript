@@ -1,4 +1,5 @@
-import { View, Image, ImageSourcePropType } from "react-native";
+import { ImageSourcePropType, View } from "react-native";
+import Animated from "react-native-reanimated";
 
 interface EmojiStickerProps {
   imageSize: number;
@@ -11,7 +12,7 @@ export default function EmojiSticker({
 }: EmojiStickerProps) {
   return (
     <View style={{ top: -350 }}>
-      <Image
+      <Animated.Image
         source={stickerSource}
         resizeMode="contain"
         style={{ width: imageSize, height: imageSize }}
