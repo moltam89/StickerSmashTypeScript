@@ -11,11 +11,12 @@ import IconButton from "./components/IconButton";
 import ImageViewer from "./components/ImageViewer";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import * as MediaLibrary from "expo-media-library";
+import { captureRef } from "react-native-view-shot";
 
 const PlaceholderImage = require("./assets/images/background-image.png");
 
 export default function App() {
-  const [status, requestPermission] = MediaLibrary.usePermissions()
+  const [status, requestPermission] = MediaLibrary.usePermissions();
 
   const [imageURI, setImageURI] = useState<string | undefined>(undefined);
   const [showAppOtions, setShowAppOptions] = useState<boolean>(false);
