@@ -16,6 +16,8 @@ import { captureRef } from "react-native-view-shot";
 const PlaceholderImage = require("./assets/images/background-image.png");
 
 export default function App() {
+  const imageRef = React.useRef(null);
+
   const [status, requestPermission] = MediaLibrary.usePermissions();
 
   const [imageURI, setImageURI] = useState<string | undefined>(undefined);
