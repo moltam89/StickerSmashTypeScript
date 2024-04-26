@@ -10,15 +10,23 @@ import EmojiSticker from "./components/EmojiSticker";
 import IconButton from "./components/IconButton";
 import ImageViewer from "./components/ImageViewer";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-
+import * as MediaLibrary from "expo-media-library";
 
 const PlaceholderImage = require("./assets/images/background-image.png");
 
 export default function App() {
+  const [status, requestPermission] = MediaLibrary.usePermissions()
+
   const [imageURI, setImageURI] = useState<string | undefined>(undefined);
   const [showAppOtions, setShowAppOptions] = useState<boolean>(false);
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-  const [pickedEmoji, setPickedEmoji] = useState<ImageSourcePropType | undefined>(undefined);
+  const [pickedEmoji, setPickedEmoji] = useState<
+    ImageSourcePropType | undefined
+  >(undefined);
+
+  if (status === null) {
+    requestPermission();
+  }
 
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -61,7 +69,9 @@ export default function App() {
           placeholderImageSource={PlaceholderImage}
           imageURI={imageURI}
         />
-        {pickedEmoji && <EmojiSticker imageSize={40} stickerSource={pickedEmoji} />}
+        {pickedEmoji && (
+          <EmojiSticker imageSize={40} stickerSource={pickedEmoji} />
+        )}
       </View>
       {showAppOtions ? (
         <View style={styles.optionsContainer}>
